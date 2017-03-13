@@ -70,7 +70,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         data1 = r1.read()
         data = data1.decode('utf8')
         events = json.loads(data)
-        #event = events['results'][0]['patient']['drug']
+      
         return events
 
     def get_event(self):
@@ -134,7 +134,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             com_num = self.get_com_num(events)
             html = self.drug_page(com_num)
             self.wfile.write(bytes(html,'utf8'))
-            #        elif self.path.find('search'):
+           
         elif 'searchmed' in self.path:
             drug=self.path.split('=')[1]
             print (drug)

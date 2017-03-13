@@ -17,7 +17,7 @@ import server
 import socketserver
 
 
-PORT = 8000
+PORT = 8002
 
 Handler = server.testHTTPRequestHandler
 
