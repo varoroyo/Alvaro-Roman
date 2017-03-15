@@ -13,13 +13,13 @@
 
 # Author : Álvaro Román Royo (alvaro.varo98@gmail.com)
 
-import server
+import web
 import socketserver
 
 
 PORT = 8002
 
-Handler = server.testHTTPRequestHandler
+Handler = web.testHTTPRequestHandler
 
 httpd = socketserver.TCPServer(("", PORT), Handler)
 print("serving at port", PORT)
