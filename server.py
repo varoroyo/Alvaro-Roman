@@ -1,4 +1,8 @@
+
+# Copyright [2017] [Eres un pelelee]
+
 # Copyright [2017] [name of copyright owner]
+
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,7 +15,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-# Author : Álvaro Román Royo (alvaro.varo98@gmail.com)
+# Author :Jorge Tarancon (alvaro.varo98@gmail.com)
 
 
 import http.server
