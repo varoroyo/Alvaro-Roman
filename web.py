@@ -73,7 +73,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         return events
 
-    def get_event(self):
+    def get_events(self):
 
         conn = http.client.HTTPSConnection(self.OPENFDA_API_URL)
         conn.request("GET", self.OPENFDA_API_EVENT + '?limit=10')
@@ -84,22 +84,24 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         events = json.loads(data)
         #event = events['results'][0]['patient']['drug']
         return events
-    def get_drug(self, events):
+
+    def get_drugs(self, events):
         medicamentos=[]
         for event in events['results']:
             medicamentos+=[event['patient']['drug'][0]['medicinalproduct']]
 
         return medicamentos
-    def get_com_num(self, events):
+
+    def get_companies_num(self, events):
         com_num=[]
         for event in events['results']:
             com_num+=[event['companynumb']]
         return com_num
 
-    def drug_page(self,medicamentos):
+    def get_html_list(self, list_items):
         s=''
-        for drug in medicamentos:
-            s += "<li>"+drug+"</li>"
+        for item in list_items:
+            s += "<li>"+item+"</li>"
         html='''
         <html>
             <head></head>
@@ -114,7 +116,6 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
 
         print (self.path)
-        #print (self.path)
 
         self.send_response(200)
 
@@ -123,31 +124,27 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         if self.path == '/' :
             html = self.get_main_page()
-            self.wfile.write(bytes(html,'utf8'))
         elif self.path == '/receivedrug?':
-            events = self.get_event()
-            medicamentos = self.get_drug(events)
-            html = self.drug_page(medicamentos)
-            self.wfile.write(bytes(html,'utf8'))
+            events = self.get_events()
+            drugs = self.get_drugs(events)
+            html = self.get_html_list(drugs)
         elif self.path == '/receivecompany?':
-            events = self.get_event()
-            com_num = self.get_com_num(events)
-            html = self.drug_page(com_num)
-            self.wfile.write(bytes(html,'utf8'))
-
+            events = self.get_events()
+            companies_num = self.get_companies_num(events)
+            html = self.get_html_list(companies_num)
         elif 'searchmed' in self.path:
             drug=self.path.split('=')[1]
             print (drug)
             events = self.get_med(drug)
             com_num = self.get_com_num(events)
-            html = self.drug_page(com_num)
-            self.wfile.write(bytes(html,'utf8'))
+            html = self.get_html_list(com_num)
         elif 'searchcom' in self.path:
             com_num = self.path.split('=')[1]
             print (com_num)
             events = self.get_medicinalproduct(com_num)
-            medicinalproduct = self.get_drug(events)
-            html = self.drug_page(medicinalproduct)
-            self.wfile.write(bytes(html,'utf8'))
+            medicinalproduct = self.get_drugs(events)
+            html = self.get_html_list(medicinalproduct)
+        
+        self.wfile.write(bytes(html,'utf8'))
 
         return
