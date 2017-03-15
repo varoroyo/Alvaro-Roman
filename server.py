@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-# Author : Álvaro Román Royo (alvaro.varo98@gmail.com)
+# Author :Jorge Tarancon (alvaro.varo98@gmail.com)
 
 
 import http.server
