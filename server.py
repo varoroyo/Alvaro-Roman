@@ -1,4 +1,4 @@
-# Copyright [yyyy] [name of copyright owner]
+# Copyright [2017] [Eres un pelelee]
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         data1 = r1.read()
         data = data1.decode('utf8')
         events = json.loads(data)
-      
+
         return events
 
     def get_event(self):
@@ -134,7 +134,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             com_num = self.get_com_num(events)
             html = self.drug_page(com_num)
             self.wfile.write(bytes(html,'utf8'))
-           
+
         elif 'searchmed' in self.path:
             drug=self.path.split('=')[1]
             print (drug)
